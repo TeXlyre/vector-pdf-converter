@@ -2,10 +2,9 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import wasm from 'vite-plugin-wasm';
 import topLevelAwait from 'vite-plugin-top-level-await';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
-  base: '/vector-pdf-converter/',  // base: './'; // To run it locally
+  base: '/vector-pdf-converter/',
   publicDir: 'public',
   build: {
     outDir: 'dist',
@@ -42,14 +41,6 @@ export default defineConfig({
   },
   plugins: [
     wasm(),
-    topLevelAwait(),
-    viteStaticCopy({
-      targets: [
-        {
-          src: resolve(__dirname, '../../dist/core/ghostscript/*'),
-          dest: 'core/ghostscript'
-        }
-      ]
-    })
+    topLevelAwait()
   ]
 });

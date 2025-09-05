@@ -1,6 +1,10 @@
 import type { GhostscriptWorkerMessage } from '../../types/ghostscript-types';
 import { GhostscriptOptionsBuilder } from './ghostscript-options';
 
+// Import the Ghostscript assets - Vite will handle the URLs
+import gsWorkerUrl from '../ghostscript/gs-worker.js?url';
+import gsWasmUrl from '../ghostscript/gs-worker.wasm?url';
+
 declare const Module: any;
 
 let isModuleLoaded = false;
@@ -8,16 +12,13 @@ let isModuleLoaded = false;
 async function loadScript(moduleConfig: any) {
   if (!isModuleLoaded) {
     try {
-      const baseUrl = self.location.origin;
-      const scriptPath = `${baseUrl}/core/ghostscript/gs-worker.js`;
-
-      console.log('Loading Ghostscript from:', scriptPath);
+      console.log('Loading Ghostscript from:', gsWorkerUrl);
 
       // Set up Module BEFORE loading the script
       (self as any).Module = moduleConfig;
       console.log('Module configuration set before script load');
 
-      const response = await fetch(scriptPath);
+      const response = await fetch(gsWorkerUrl);
 
       if (!response.ok) {
         throw new Error(`Failed to fetch gs-worker.js: ${response.status} ${response.statusText}`);
@@ -144,7 +145,7 @@ async function processFile(data: GhostscriptWorkerMessage['data']): Promise<{ ur
         noExitRuntime: 1,
         locateFile: (path: string) => {
           if (path.endsWith('.wasm')) {
-            return `${self.location.origin}/core/ghostscript/gs-worker.wasm`;
+            return gsWasmUrl;
           }
           return path;
         }
