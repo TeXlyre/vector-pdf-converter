@@ -1,0 +1,329 @@
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 1200px) {
+  #root {
+    max-width: 1280px;
+  }
+}
+
+.conversion-setup {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.file-info {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.options-toggle {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.advanced-options {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.advanced-options h3 {
+  margin-top: 0;
+  color: #646cff;
+}
+
+.option-group {
+  margin: 1rem 0;
+}
+
+.option-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.option-group select,
+.option-group input[type="number"],
+.option-group input[type="color"] {
+  width: 100%;
+  max-width: 200px;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.sub-option {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.custom-size {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.size-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.loading-state {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.progress-info {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(45deg, #646cff, #535bf2);
+  transition: width 0.3s ease;
+}
+
+.download-state {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.success-info {
+  background: rgba(101, 180, 83, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(101, 180, 83, 0.2);
+}
+
+.metadata {
+  margin-top: 0.5rem;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.download-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.error-state {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-message {
+  background: rgba(220, 53, 69, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.features-info {
+  margin: 3rem 0;
+  text-align: left;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-card h4 {
+  margin-top: 0;
+  color: #646cff;
+}
+
+.feature-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.feature-card li {
+  margin: 0.3rem 0;
+  font-size: 0.9em;
+}
+
+.secondary-button {
+  background-color: #6c757d;
+}
+
+.secondary-button:hover {
+  background-color: #5a6268;
+}
+
+/* Existing button styles */
+form {
+  margin: 0 auto;
+  padding: 20px;
+  width: 400px;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: auto;
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 3px;
+}
+
+label {
+  margin: 0;
+  width: auto;
+  max-width: 300px;
+  height: auto;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  -webkit-transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -ms-transition: 0.2s ease all;
+  -o-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.padded-button {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+}
+
+.label {
+  background-color: #929292;
+}
+
+.success-button {
+  background-color: #65b453;
+}
+
+.blue {
+  background-color: #646cff;
+}
+
+[type="file"] {
+  display: none;
+}
+
+button, [type="submit"], .green, .blue, .success-button, .secondary-button {
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -ms-transition: 0.2s ease all;
+  -o-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+  white-space: normal;
+  background: transparent;
+}
+
+button:hover, .success-button:hover, .blue:hover, .secondary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+footer {
+ margin-top: 3rem;
+ padding-top: 2rem;
+ border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+ .custom-size,
+ .size-options {
+   grid-template-columns: 1fr;
+ }
+
+ .features-grid {
+   grid-template-columns: 1fr;
+ }
+
+ .action-buttons,
+ .download-actions {
+   flex-direction: column;
+   align-items: center;
+ }
+
+ .advanced-options {
+   padding: 1rem;
+ }
+
+ .option-group select,
+ .option-group input[type="number"],
+ .option-group input[type="color"] {
+   max-width: 100%;
+ }
+}
+
+@media (max-width: 480px) {
+ #root {
+   padding: 1rem;
+ }
+
+ .padded-button {
+   padding: 12px 16px;
+   font-size: 14px;
+ }
+}

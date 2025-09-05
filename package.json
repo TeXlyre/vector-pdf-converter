@@ -1,0 +1,63 @@
+{
+  "name": "vector-pdf-converter",
+  "version": "1.0.0",
+  "description": "Convert EPS and SVG files to PDF or compress existing PDFs using Ghostscript and WebAssembly",
+  "author": "Fares Abawi <fares@abawi.me> (https://abawi.me)",
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/texlyre/vector-pdf-converter.git"
+  },
+  "homepage": "https://texlyre.github.io/vector-pdf-converter/",
+  "type": "module",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build && tsc --emitDeclarationOnly",
+    "build:types": "tsc --emitDeclarationOnly",
+    "prepare": "npm run build",
+    "dev": "tsc --watch",
+    "build:pages-example": "npm run build && npm run setup-pages-example && cd example/github-pages-example && npm run build",
+    "build:react-example": "cd example/react-app && npm run build",
+    "setup-pages-example": "node scripts/setup-pages-example.cjs",
+    "pages-example": "cd example/github-pages-example && npm run dev",
+    "install:react-example": "cd example/react-app && npm install",
+    "react-example": "cd example/react-app && npm run dev"
+  },
+  "dependencies": {
+    "@resvg/resvg-wasm": "^2.6.2",
+    "jspdf": "^3.0.2",
+    "svg2pdf.js": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "rollup-plugin-copy": "^3.5.0",
+    "typescript": "^5.4.3",
+    "vite": "^7.1.3"
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "pdf",
+    "converter",
+    "compress",
+    "eps",
+    "svg",
+    "ghostscript",
+    "webassembly",
+    "typescript",
+    "browser"
+  ]
+}

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert EPS and SVG files to PDF or compress existing PDFs using Ghostscript and WebAssembly">
+  <title>PDF Converter Library</title>
+</head>
+<body>
+  <header>
+    <h1>PDF Converter Library</h1>
+    <div class="links">
+      <a href="https://github.com/texlyre/vector-pdf-converter" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.npmjs.com/package/vector-pdf-converter" target="_blank" rel="noopener noreferrer">npm</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="demo-container">
+      <h2>Interactive Demo</h2>
+      <p>Try out the PDF converter library below. Upload PDF, EPS, or SVG files to see it in action.</p>
+
+      <div class="converter-container">
+        <div class="file-upload">
+          <input type="file" id="fileInput" accept=".pdf,.eps,.svg" multiple />
+          <label for="fileInput" class="file-label">Choose Files (PDF, EPS, or SVG)</label>
+
+          <div class="batch-toggle">
+            <label class="batch-checkbox">
+              <input type="checkbox" id="batchMode" />
+              Batch Mode (Process multiple files)
+            </label>
+          </div>
+
+          <div class="file-info" id="fileInfo" style="display: none;"></div>
+          <div class="file-list" id="fileList" style="display: none;"></div>
+        </div>
+
+        <div class="options" id="options" style="display: none;">
+          <div class="options-toggle">
+            <button id="toggleAdvanced" class="toggle-btn">⚙️ Show Advanced Options</button>
+          </div>
+
+          <div class="basic-options">
+            <h3>Quick Settings</h3>
+            <div class="option-group">
+              <label for="quality">Quality:</label>
+              <select id="quality">
+                <option value="screen">Screen (72 DPI)</option>
+                <option value="ebook" selected>E-book (150 DPI)</option>
+                <option value="printer">Printer (300 DPI)</option>
+                <option value="prepress">Prepress (300 DPI)</option>
+              </select>
+            </div>
+
+            <div class="option-group">
+              <label>
+                <input type="checkbox" id="downscaleImages" checked>
+                Downscale Images
+              </label>
+            </div>
+
+            <div class="option-group">
+              <label>
+                <input type="checkbox" id="optimizeForWeb" checked>
+                Optimize for Web
+              </label>
+            </div>
+          </div>
+
+          <div class="advanced-options" id="advancedOptions" style="display: none;">
+            <h3>Advanced Options</h3>
+
+            <!-- PDF Options -->
+            <div class="pdf-options" id="pdfOptions" style="display: none;">
+              <div class="option-group">
+                <label for="colorStrategy">Color Strategy:</label>
+                <select id="colorStrategy">
+                  <option value="LeaveColorUnchanged">Leave Unchanged</option>
+                  <option value="sRGB" selected>sRGB</option>
+                  <option value="CMYK">CMYK</option>
+                  <option value="Gray">Grayscale</option>
+                </select>
+              </div>
+
+              <div class="option-group">
+                <label for="compatibilityLevel">PDF Version:</label>
+                <select id="compatibilityLevel">
+                  <option value="1.3">PDF 1.3</option>
+                  <option value="1.4" selected>PDF 1.4</option>
+                  <option value="1.5">PDF 1.5</option>
+                  <option value="1.6">PDF 1.6</option>
+                  <option value="1.7">PDF 1.7</option>
+                </select>
+              </div>
+
+              <div class="option-group" id="imageResolutionGroup" style="display: none;">
+                <label for="imageResolution">Image Resolution (DPI):</label>
+                <input type="number" id="imageResolution" value="150" min="72" max="600" step="50">
+              </div>
+
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" id="compressPages" checked>
+                  Compress Pages
+                </label>
+                <label>
+                  <input type="checkbox" id="removeMetadata">
+                  Remove Metadata
+                </label>
+                <label>
+                  <input type="checkbox" id="flattenTransparency">
+                  Flatten Transparency
+                </label>
+              </div>
+            </div>
+
+            <!-- EPS Options -->
+            <div class="eps-options" id="epsOptions" style="display: none;">
+              <div class="option-group">
+                <label for="pageSize">Page Size:</label>
+                <select id="pageSize">
+                  <option value="a4" selected>A4</option>
+                  <option value="letter">Letter</option>
+                  <option value="legal">Legal</option>
+                  <option value="a3">A3</option>
+                  <option value="a5">A5</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+
+              <div class="custom-size" id="customSize" style="display: none;">
+                <div class="option-group">
+                  <label for="customWidth">Width (points):</label>
+                  <input type="number" id="customWidth" value="595" min="72">
+                </div>
+                <div class="option-group">
+                  <label for="customHeight">Height (points):</label>
+                  <input type="number" id="customHeight" value="842" min="72">
+                </div>
+              </div>
+
+              <div class="option-group">
+                <label for="epsResolution">Resolution (DPI):</label>
+                <input type="number" id="epsResolution" value="300" min="72" max="1200" step="50">
+              </div>
+
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" id="cropToEPS" checked>
+                  Crop to EPS BoundingBox
+                </label>
+                <label>
+                  <input type="checkbox" id="fitToPage" checked>
+                  Fit EPS to Page
+                </label>
+              </div>
+            </div>
+
+            <!-- SVG Options -->
+            <div class="svg-options" id="svgOptions" style="display: none;">
+              <div class="option-group">
+                <label for="svgBackend">Conversion Backend:</label>
+                <select id="svgBackend">
+                  <option value="resvg" selected>RESVG (Best Quality)</option>
+                  <option value="jspdf">jsPDF (Lightweight)</option>
+                  <option value="svg2pdf">svg2pdf (Vector Preserving)</option>
+                  <option value="all">All Engines (Compare Results)</option>
+                </select>
+              </div>
+
+              <div class="option-group">
+                <label for="svgScale">Scale Factor:</label>
+                <input type="number" id="svgScale" value="1" min="0.1" max="5" step="0.1">
+              </div>
+
+              <div class="option-group">
+                <label for="backgroundColor">Background Color:</label>
+                <input type="color" id="backgroundColor" value="#ffffff">
+              </div>
+
+              <div class="size-options">
+                <div class="option-group">
+                  <label for="svgWidth">Custom Width (px):</label>
+                  <input type="number" id="svgWidth" placeholder="Auto" min="1">
+                </div>
+                <div class="option-group">
+                  <label for="svgHeight">Custom Height (px):</label>
+                  <input type="number" id="svgHeight" placeholder="Auto" min="1">
+                </div>
+              </div>
+
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" id="preserveAspectRatio" checked>
+                  Preserve Aspect Ratio
+               </label>
+             </div>
+           </div>
+         </div>
+
+         <button id="convertBtn" class="convert-btn">Convert</button>
+       </div>
+
+       <div class="progress" id="progress" style="display: none;">
+         <div class="progress-bar">
+           <div class="progress-fill" id="progressFill"></div>
+         </div>
+         <div class="progress-text" id="progressText">Processing...</div>
+         <div class="batch-progress" id="batchProgress" style="display: none;"></div>
+       </div>
+
+       <div class="result" id="result" style="display: none;">
+         <h3>Conversion Complete!</h3>
+         <div class="result-info" id="resultInfo"></div>
+
+         <div class="result-actions">
+           <button id="previewBtn" class="preview-btn">👁️ Preview PDF</button>
+           <button id="downloadBtn" class="download-btn">📥 Download Result</button>
+           <button id="reconvertBtn" class="reconvert-btn">🔄 Convert with Different Options</button>
+           <button id="resetBtn" class="reset-btn">📁 Choose Different Files</button>
+         </div>
+
+         <div class="multiple-results" id="multipleResults" style="display: none;">
+           <h4>All Engine Results:</h4>
+           <div class="engine-results" id="engineResults"></div>
+         </div>
+
+         <div class="batch-results" id="batchResults" style="display: none;">
+           <h4>Batch Conversion Results:</h4>
+           <div class="result-actions">
+             <button id="downloadAllBtn" class="download-btn">📦 Download All as ZIP</button>
+           </div>
+           <div class="batch-file-results" id="batchFileResults"></div>
+         </div>
+       </div>
+
+       <div class="preview-modal" id="previewModal" style="display: none;">
+         <div class="preview-content">
+           <div class="preview-header">
+             <h3>PDF Preview</h3>
+             <button id="closePreview" class="close-preview">✖️</button>
+           </div>
+           <div class="preview-body">
+             <iframe id="pdfPreview" src="" width="100%" height="600px"></iframe>
+           </div>
+         </div>
+       </div>
+     </div>
+   </section>
+
+   <section class="features">
+     <h2>Features</h2>
+     <ul>
+       <li>Convert EPS files to PDF with advanced page sizing and cropping</li>
+       <li>Convert SVG files to PDF with multiple backends (RESVG, jsPDF, svg2pdf.js)</li>
+       <li>Compare all SVG engines side-by-side with "All Engines" option</li>
+       <li>Compress existing PDF files with customizable quality settings</li>
+       <li>Batch processing of multiple files with ZIP download</li>
+       <li>Advanced color conversion strategies (sRGB, CMYK, Grayscale)</li>
+       <li>Image downscaling and optimization with custom resolution</li>
+       <li>Web optimization for faster loading</li>
+       <li>Metadata removal for privacy</li>
+       <li>Multiple PDF compatibility levels</li>
+       <li>Custom page sizes and dimensions</li>
+       <li>Preview PDF results before downloading</li>
+       <li>Re-convert with different options without re-uploading</li>
+       <li>Client-side processing - files never leave your browser</li>
+     </ul>
+   </section>
+
+   <section class="installation">
+     <h2>Installation</h2>
+     <pre><code>npm install vector-pdf-converter</code></pre>
+   </section>
+
+   <section class="usage">
+     <h2>Usage</h2>
+     <pre><code>import { PDFConverter } from 'vector-pdf-converter';
+
+// Convert a PDF file
+const result = await PDFConverter.convertFile(file, {
+ quality: 'ebook',
+ downscaleImages: true,
+ optimizeForWeb: true,
+ colorConversionStrategy: 'sRGB',
+ compatibilityLevel: '1.4'
+});
+
+// Convert an SVG file
+const svgResult = await PDFConverter.convertSVG(svgFile, {
+ backend: 'resvg',
+ scale: 1,
+ backgroundColor: 'white',
+ preserveAspectRatio: true
+});
+
+// Convert SVG with all engines for comparison
+const allResults = await PDFConverter.convertSVG(svgFile, {
+ backend: 'all',
+ scale: 1,
+ backgroundColor: 'white'
+});
+
+// Convert an EPS file
+const epsResult = await PDFConverter.convertFile(epsFile, {
+ cropToEPS: true,
+ fitToPage: true,
+ pageSize: 'a4',
+ resolution: 300
+});
+
+// Batch convert multiple files
+const batchResults = await Promise.all(
+ files.map(file => PDFConverter.convertFile(file, options))
+);
+
+// Download the result
+const link = document.createElement('a');
+link.href = result.url;
+link.download = 'converted.pdf';
+link.click();</code></pre>
+   </section>
+ </main>
+
+ <footer>
+   <p>AGPL-3.0 License &copy; 2025 <a href="https://abawi.me">Fares Abawi</a></p>
+ </footer>
+
+ <script type="module" src="/src/main.js"></script>
+</body>
+</html>
