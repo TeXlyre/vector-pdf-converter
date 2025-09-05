@@ -5,7 +5,7 @@ import topLevelAwait from 'vite-plugin-top-level-await';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
-  base: './',
+  base: '/vector-pdf-converter/',  // base: './'; // To run it locally
   publicDir: 'public',
   build: {
     outDir: 'dist',
