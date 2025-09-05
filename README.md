@@ -324,4 +324,4 @@ The AGPL-3.0 license is required due to the Ghostscript WebAssembly component, w
 
 ## Demo
 
-Try the live demo at: [https://texlyre.github.io/pdf-converter/](https://texlyre.github.io/pdf-converter/)
+Try the live demo at: [https://texlyre.github.io/vector-pdf-converter/](https://texlyre.github.io/vector-pdf-converter/)
