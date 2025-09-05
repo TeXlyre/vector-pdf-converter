@@ -27,8 +27,7 @@ export default defineConfig({
       allow: [
         resolve(__dirname, '../..'),
         resolve(__dirname, '../../node_modules'),
-        resolve(__dirname, '../../src'),
-        resolve(__dirname, '../../dist')
+        resolve(__dirname, '../../src')
       ]
     }
   },
@@ -47,7 +46,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: '../../dist/core/ghostscript/*',
+          src: resolve(__dirname, '../../dist/core/ghostscript/*'),
           dest: 'core/ghostscript'
         }
       ]
