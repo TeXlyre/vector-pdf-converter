@@ -1,6 +1,6 @@
 {
   "name": "vector-pdf-converter",
-  "version": "1.0.0",
+  "version": "0.1.0-alpha0",
   "description": "Convert EPS and SVG files to PDF or compress existing PDFs using Ghostscript and WebAssembly",
   "author": "Fares Abawi <fares@abawi.me> (https://abawi.me)",
   "license": "AGPL-3.0",
