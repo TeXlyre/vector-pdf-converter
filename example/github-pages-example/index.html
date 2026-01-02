@@ -323,9 +323,13 @@ link.click();</code></pre>
    </section>
  </main>
 
- <footer>
-  <p>AGPL-3.0 License &copy; {new Date().getFullYear()} <a href="https://abawi.me">Fares Abawi</a></p>
- </footer>
+<footer>
+  <p>AGPL-3.0 License &copy; <span id="year"></span> <a href="https://abawi.me">Fares Abawi</a></p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
  <script type="module" src="/src/main.js"></script>
 </body>
