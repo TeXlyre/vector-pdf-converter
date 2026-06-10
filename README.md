@@ -1,6 +1,12 @@
 # PDF Converter TypeScript Library
 
-A comprehensive TypeScript library for converting EPS and SVG files to PDF, and compressing existing PDFs using [Ghostscript](https://ghostscript.com/) WebAssembly and SVG conversion engines.
+![Status: Experimental](https://img.shields.io/badge/status-experimental-red)
+
+> [!WARNING]
+> This repository is experimental.
+> Expect breaking changes and unstable APIs.
+
+A TypeScript library for converting EPS and SVG files to PDF, and compressing existing PDFs using [Ghostscript](https://ghostscript.com/) WebAssembly and SVG conversion engines.
 
 ## Features
 
